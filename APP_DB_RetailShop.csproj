@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{85958609-77D3-434D-A331-3F89B80B318B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>APP_DB_RetailShop</RootNamespace>
+    <AssemblyName>APP_DB_RetailShop</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMasterEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMasterEmployee.Designer.cs">
+      <DependentUpon>FormMasterEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMasterProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMasterProduct.Designer.cs">
+      <DependentUpon>FormMasterProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMenu.Designer.cs">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReport.Designer.cs">
+      <DependentUpon>FormReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTransSales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTransSales.Designer.cs">
+      <DependentUpon>FormTransSales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMasterEmployee.resx">
+      <DependentUpon>FormMasterEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMasterProduct.resx">
+      <DependentUpon>FormMasterProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMenu.resx">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReport.resx">
+      <DependentUpon>FormReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTransSales.resx">
+      <DependentUpon>FormTransSales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
