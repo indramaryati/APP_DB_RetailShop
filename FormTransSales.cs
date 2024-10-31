@@ -82,7 +82,9 @@ namespace APP_DB_RetailShop
                 {
                     MessageBox.Show("Sales ID is INVALID !");
                     getSalesID();
-                } else { 
+
+                    cmd = new MySqlCommand();
+                    cmd.Connection = conn;
                     cmd.CommandText = "INSERT INTO SALES (SALES_ID, EMPLOYEE_ID) VALUES " +
                         "(@sid,@eid)";
                     cmd.Parameters.AddWithValue("@sid", txtSalesID.Text);
@@ -191,10 +193,6 @@ namespace APP_DB_RetailShop
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            /*for (int i = 0; i < dgvDetail.Rows.Count; i++)
-            {
-
-            }*/
             try
             {
                 cmd = new MySqlCommand();

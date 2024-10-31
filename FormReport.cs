@@ -109,7 +109,7 @@ namespace APP_DB_RetailShop
             {
                 lblJudul.Text = "COMPLETED SALES REPORT";
                 cmdText = "select * from vPenjualan where sales_date >= '" + dtpStart.Value.ToString("yyyy-MM-dd") + 
-                    "' and sales_date<= '" + dtpEnd.Value.ToString("yyyy-MM-dd") + "' order by sales_date desc";
+                    "' and sales_date <= '" + dtpEnd.Value.ToString("yyyy-MM-dd") + "' order by sales_date desc";
 
                 conn.Close();
                 conn.Open();

@@ -81,8 +81,8 @@ namespace APP_DB_RetailShop
                 cmd = new MySqlCommand();
                 cmd.Connection = conn;
                 if (mode == "insert")
-                    cmd.CommandText = "INSERT INTO EMPLOYEE (EMPLOYEE_ID, EMPLOYEE_NIK, EMPLOYEE_NAME, EMPLOYEE_PHONE, EMPLOYEE_EMAIL, EMPLOYEE_USERNAME, EMPLOYEE_PASSWORD) VALUES " +
-                        "(@id,@nik,@name,@phone,@email,@user,@pass)";
+                    cmd.CommandText = "INSERT INTO EMPLOYEE (EMPLOYEE_NIK, EMPLOYEE_NAME, EMPLOYEE_PHONE, EMPLOYEE_EMAIL, EMPLOYEE_USERNAME, EMPLOYEE_PASSWORD) VALUES " +
+                        "(@nik,@name,@phone,@email,@user,@pass)";
                 else if (mode == "update")
                     cmd.CommandText = "UPDATE EMPLOYEE SET EMPLOYEE_NIK = @nik, EMPLOYEE_NAME = @name, EMPLOYEE_PHONE = @phone, EMPLOYEE_EMAIL = @email, EMPLOYEE_PASSWORD=md5(@pass) " +
                         "WHERE EMPLOYEE_ID=@id";
