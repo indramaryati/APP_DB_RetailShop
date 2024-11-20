@@ -37,7 +37,7 @@ on sd.product_id = p.product_id
 group by p.product_id
 order by p.product_id;
 
--- drop view if exists vPerformaProduct;
+-- drop view if exists vPenjualan;
 create or replace view vPenjualan as
 SELECT s.sales_id, s.sales_status, s.employee_id, e.employee_name, s.sales_date, format(sales_total ,0) as sales_total, s.sales_payment_method
 FROM sales s
@@ -47,10 +47,10 @@ on e.employee_id = s.employee_id;
 /*==============================================================*/
 /* FUNCTION FOR GENERATE KEY                                      */
 /*==============================================================*/
-drop function fGenProductID;
+drop function if exists fGenProductID;
 delimiter $$
 create function fGenProductID(parCat varchar(25), parName varchar(100))
-returns varchar(7)
+returns varchar(7) -- 1 digit category, 1digit nama depan, 1 digit belakang, 4 urut. Beverage | Big Cola 200ml -> BBC0001
 deterministic
 begin
   declare tempID varchar(7);
@@ -65,12 +65,12 @@ begin
 end$$
 delimiter ;
 
--- select fGenProductID('Beverages','Coca Cola 200ml');
+-- select fGenProductID('Beverages','Big Cola 200ml');
 
-drop function fGenEmployeeID;
+drop function if exists fGenEmployeeID;
 delimiter $$
 create function fGenEmployeeID(parName varchar(100))
-returns varchar(7)
+returns varchar(7) -- 2 digit nama depan, 2 digit belakang, 3 digit urutan
 deterministic
 begin
   declare tempID varchar(7);
@@ -85,9 +85,9 @@ begin
 end$$
 delimiter ;
 
--- select fGenEmployeeId('John Dower');
+ -- select fGenEmployeeId('John Trap');
 
-drop function fGenSalesID; -- N241013001
+drop function if exists fGenSalesID; -- N241013001
 delimiter $$
 create function fGenSalesID()
 returns varchar(10)
@@ -109,7 +109,7 @@ delimiter ;
 
 -- -----------------------------------------------------------------
 
-drop trigger tInsEmployee;
+drop trigger if exists tInsEmployee;
 delimiter $$
 create trigger tInsEmployee
 before insert on employee
@@ -121,7 +121,7 @@ begin
 end$$
 delimiter ;
 
-drop function fCheckLogin;
+drop function if exists fCheckLogin;
 delimiter //
 create function fCheckLogin(parUser varchar(20), parPass varchar(255))
 returns varchar(7)
@@ -138,16 +138,15 @@ begin
 end//
 delimiter ;
 
--- select fCheckLogin('john1','password');
+ select fCheckLogin('john1','password');
 
 /*==============================================================*/
 /* PROCEDURE for view data on HISTORY_PRODUCT_PRICE and have id */
 /*==============================================================*/
-drop procedure pViewPriceHistory;
+drop procedure if exists pViewPriceHistory;
 delimiter $$
 create procedure pViewPriceHistory(in parID varchar(7))
 begin
-
   if parID = 'ALL' then
     select date_format(h.his_date,'%Y-%m-%d') as change_date, h.product_id, p.product_name, format(h.his_price_before,0) as p_before, format(h.his_price_after,0) as p_after, e.employee_name as changed_by
     from history_product_price h
@@ -173,7 +172,7 @@ delimiter ;
 Beverages: 10 | Snacks: 10 | Dairy: 10 | Household: 3 | 
 Personal Care: 5 | Frozen: 10 | Confectionery: 10 | Canned Goods: 5
 */
-drop trigger tInsProduct;
+drop trigger if exists tInsProduct;
 delimiter $$
 create trigger tInsProduct
 before insert on product
@@ -193,10 +192,10 @@ delimiter ;
 /*==============================================================*/
 /* TRIGGER dan PROCEDURE for input data on HISTORY_PRODUCT_PRICE  */
 /*==============================================================*/
-drop trigger tUpdateProductPrice;
+drop trigger if exists tUpdateProductPrice;
 delimiter $$
 create trigger tUpdateProductPrice 
-before update on product -- (in parProdID varchar(7), in parEmpID varchar(7), in parPrice int)
+before update on product 
 for each row
 begin  
   if old.product_sell_price <> new.product_sell_price then
@@ -207,7 +206,7 @@ begin
 end$$
 delimiter ;
 
-drop procedure pUpdEmpID;
+drop procedure if exists pUpdEmpID;
 delimiter $$
 create procedure pUpdEmpID(in parEmpID varchar(7))
 begin
@@ -226,7 +225,7 @@ delimiter ;
 /* TRIGGER for minus PRODUCT_STOCK if there's new data in SALES_DETAIL    */
 /* ALSO WILL UPDATE SALES_PRICE with PRODUCT_SELL_PRICE                   */
 /*========================================================================*/
-drop trigger tUpdProductStockPrice;
+drop trigger if exists tUpdProductStockPrice;
 delimiter ||
 create trigger tUpdProductStockPrice
 before insert on sales_detail
@@ -251,7 +250,7 @@ delimiter ;
 /*========================================================================*/
 /* TRIGGER for update SALES (header) if PAYMENT is DONE                 */
 /*========================================================================*/
-drop trigger tUpdHeaderSales;
+drop trigger if exists tUpdHeaderSales;
 delimiter ||
 create trigger tUpdHeaderSales
 before update on sales
@@ -259,6 +258,7 @@ for each row
 begin
   declare itemSales, totSales int;
   
+  -- utk get item_count, total_sales
   select count(detail_sales_id), sum(sales_qty * sales_price) into itemSales, totSales
   from sales_detail
   where sales_id = new.sales_id

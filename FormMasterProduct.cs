@@ -103,6 +103,12 @@ namespace APP_DB_RetailShop
                 if (mode == "insert") { 
                     cmd = new MySqlCommand();
                     cmd.Connection = conn;
+                    /*
+                    cmd.CommandText = "SELECT fGenProductID(@cat, @name)";
+                    cmd.Parameters.AddWithValue("@cat", cbCat.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@name", txtProdName.Text);
+                    */
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "fGenProductID";
 
