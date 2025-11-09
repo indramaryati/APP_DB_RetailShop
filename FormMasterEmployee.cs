@@ -36,8 +36,7 @@ namespace APP_DB_RetailShop
         {
             try
             {
-                string cmdText = "SELECT employee_id,employee_nik,employee_name,employee_phone,employee_email,employee_username,employee_password " +
-                    "FROM employee WHERE employee_is_available = 1";
+                string cmdText = "SELECT * FROM vAvailEmployee";
 
                 conn.Close();
                 conn.Open();

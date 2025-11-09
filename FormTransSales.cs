@@ -80,7 +80,7 @@ namespace APP_DB_RetailShop
                     activateCart();
                 } else if (salesStatus == "none")
                 {
-                    MessageBox.Show("Sales ID is INVALID !");
+                    MessageBox.Show("Sales ID is NEW !");
                     getSalesID();
 
                     cmd = new MySqlCommand();
@@ -156,9 +156,9 @@ namespace APP_DB_RetailShop
             try
             {
                 ds = new DataSet();
-                string cmdText = "SELECT product_id, product_name, product_stock FROM product WHERE product_is_available = 1";
+                string cmdText = "SELECT product_id, product_name, product_stock FROM vAvailProduct";
                 if (parCat != "--ALL--")
-                    cmdText = "SELECT product_id, product_name, product_stock FROM product WHERE product_is_available = 1 AND lower(product_category)='" + parCat.ToLower() + "'";
+                    cmdText = "SELECT product_id, product_name, product_stock FROM vAvailProduct WHERE lower(product_category)='" + parCat.ToLower() + "'";
 
                 conn.Close();
                 conn.Open();
@@ -224,10 +224,9 @@ namespace APP_DB_RetailShop
             try
             {
                 dsDetail = new DataSet();
-                string cmdText = "SELECT sd.sales_id, sd.product_id, p.product_name, sd.sales_qty " +
-                                 "FROM sales_detail sd " +
-                                 "JOIN product p ON sd.product_id = p.product_id " +
-                                 "WHERE sd.sales_id = '" + txtSalesID.Text + "'";
+                string cmdText = "SELECT * " +
+                                 "FROM viewSalesDetail " +
+                                 "WHERE sales_id = '" + txtSalesID.Text + "'";
 
                 conn.Close();
                 conn.Open();

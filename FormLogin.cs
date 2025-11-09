@@ -27,7 +27,7 @@ namespace APP_DB_RetailShop
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "SELECT fCheckLogin('" + txtUser.Text + "','" + txtPass.Text + "')";
-
+                // SELECT fCheckLogin('david', 'pass');
                 conn.Open();
                 empID = (string)cmd.ExecuteScalar();
                 conn.Close();

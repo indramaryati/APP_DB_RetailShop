@@ -39,9 +39,9 @@ namespace APP_DB_RetailShop
         {
             try
             {
-                string cmdText = "SELECT product_id, product_name, product_stock, product_sell_price FROM product WHERE product_is_available = 1";
+                string cmdText = "SELECT product_id, product_name, product_stock, product_sell_price FROM vAvailProduct";
                 if (parCat != "--ALL--") 
-                    cmdText = "SELECT product_id, product_name, product_stock, product_sell_price FROM product WHERE product_is_available = 1 AND lower(product_category)='" + parCat.ToLower() + "'";
+                    cmdText = "SELECT product_id, product_name, product_stock, product_sell_price FROM vAvailProduct WHERE lower(product_category)='" + parCat.ToLower() + "'";
 
                 conn.Close();
                 conn.Open();
@@ -103,6 +103,7 @@ namespace APP_DB_RetailShop
                 if (mode == "insert") { 
                     cmd = new MySqlCommand();
                     cmd.Connection = conn;
+
                     /*
                     cmd.CommandText = "SELECT fGenProductID(@cat, @name)";
                     cmd.Parameters.AddWithValue("@cat", cbCat.SelectedItem.ToString());
@@ -115,9 +116,9 @@ namespace APP_DB_RetailShop
                     cmd.Parameters.Add("hslID", MySqlDbType.VarChar);
                     cmd.Parameters["hslID"].Direction = ParameterDirection.ReturnValue;
 
-                    cmd.Parameters.AddWithValue("parCat", cbCat.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("parName", txtProdName.Text);
-
+                    cmd.Parameters.AddWithValue("parCat", cbCat.SelectedItem.ToString());
+                    
                     conn.Open();
                     cmd.ExecuteScalar();
                     txtProdID.Text = cmd.Parameters["hslID"].Value.ToString();

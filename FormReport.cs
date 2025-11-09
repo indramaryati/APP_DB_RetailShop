@@ -78,7 +78,7 @@ namespace APP_DB_RetailShop
                     gbFilterDate.Visible = false;
                     gbFilterProd.Visible = false;
                     MessageBox.Show("No Report Selected ! Only show product table.");
-                    cmdText = "select * from product";
+                    cmdText = "select * from vAvailProduct";
                 }
 
                 conn.Close();
@@ -159,7 +159,7 @@ namespace APP_DB_RetailShop
             {
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "SELECT concat(product_id, ' | ', product_name) as prd FROM Product WHERE product_is_available=1 ORDER BY product_id";
+                cmd.CommandText = "SELECT concat(product_id, ' | ', product_name) as prd FROM vAvailProduct ORDER BY product_id";
 
                 conn.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();

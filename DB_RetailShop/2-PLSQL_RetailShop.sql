@@ -1,8 +1,26 @@
 /*==============================================================*/
 /* VIEWS                                                        */
 /*==============================================================*/
+-- drop view if exists vAvailProduct;
+create view vAvailProduct as
+SELECT product_id, product_name, product_stock, product_sell_price, product_category
+FROM product 
+WHERE product_is_available = 1;
+
+-- drop view if exists vAvailEmployee;
+create view vAvailEmployee as
+SELECT employee_id,employee_nik,employee_name,employee_phone,employee_email,employee_username,employee_password 
+FROM employee 
+WHERE employee_is_available = 1;
+
+-- drop view viewSalesDetail;
+create view viewSalesDetail as
+SELECT sd.sales_id, sd.product_id, p.product_name, sd.sales_qty
+FROM sales_detail sd 
+JOIN product p ON sd.product_id = p.product_id;
+
 -- drop view if exists vDaftarTransaksiSukses;
-create or replace view vDaftarTransaksiSukses as
+create view vDaftarTransaksiSukses as
 select s.sales_id, s.employee_id, e.employee_name, s.sales_date, s.sales_total, s.sales_item_count, s.sales_payment_method,
        sd.product_id, p.product_name, sd.sales_qty, sd.sales_price, (sd.sales_qty * sd.sales_price) as sales_subtotal
 from SALES s
@@ -16,7 +34,7 @@ where upper(sales_status) <> 'PENDING'
 order by s.sales_id;
 
 -- drop view if exists vPerformaEmployee;
-create or replace view vPerformaEmployee as
+create view vPerformaEmployee as
 select e.employee_id, e.employee_name, ifnull(count(s.employee_id),0) as sales_count, ifnull(sum(s.sales_total),0) as sales_sum
 from EMPLOYEE e
 left join (select * from SALES where sales_status='COMPLETED') s
@@ -25,7 +43,7 @@ group by e.employee_id
 order by e.employee_id;
 
 -- drop view if exists vPerformaProduct;
-create or replace view vPerformaProduct as
+create view vPerformaProduct as
 select p.product_id, p.product_name, p.product_category, 
        ifnull(sum(sd.sales_qty), 0) as product_sales_sum
 from product p
@@ -38,7 +56,7 @@ group by p.product_id
 order by p.product_id;
 
 -- drop view if exists vPenjualan;
-create or replace view vPenjualan as
+create view vPenjualan as
 SELECT s.sales_id, s.sales_status, s.employee_id, e.employee_name, s.sales_date, format(sales_total ,0) as sales_total, s.sales_payment_method
 FROM sales s
 join employee e
