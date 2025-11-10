@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -12,12 +13,28 @@ namespace APP_DB_RetailShop
 {
     public partial class FormLogin : Form
     {
-        public MySqlConnection conn = new MySqlConnection("SERVER=localhost; UID=root; PWD=root; DATABASE=db_retailshop");
+        public MySqlConnection conn;
         public string empID;
 
         public FormLogin()
         {
             InitializeComponent();
+            loginCredentials();
+        }
+
+        private void loginCredentials()
+        {
+            try
+            {
+                string fileName = "credentials.txt";
+                string[] lines = File.ReadAllLines(fileName);
+
+                conn = new MySqlConnection("SERVER=localhost; UID=" + lines[0] + "; PWD="+ lines[1] +"; DATABASE="+ lines[2] );
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Error reading file: {ex.Message}");
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
